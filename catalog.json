@@ -2931,7 +2931,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAccess"
       },
       {
         "kind": "integer",
@@ -3219,15 +3220,32 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
-      },
-      {
-        "kind": "integer",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAccess"
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "createFile2_dwShareMode",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "createFile2_dwCreationDisposition",
+        "exactGood": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
       },
       {
         "kind": "ptr",
@@ -3254,7 +3272,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAccess"
       },
       {
         "kind": "integer",
@@ -3262,7 +3281,15 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "creationDisposition",
+        "exactGood": [
+          3,
+          2,
+          1,
+          4,
+          5
+        ]
       },
       {
         "kind": "ptr",
@@ -3345,7 +3372,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAccess"
       },
       {
         "kind": "integer",
@@ -3434,8 +3462,21 @@
         "nullGood": true
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "createFileMappingFromApp_PageProtection",
+        "exactGood": [
+          0,
+          2,
+          4,
+          8,
+          67108864,
+          134217728,
+          268435456,
+          285212672,
+          1073741824,
+          2147483648
+        ]
       },
       {
         "kind": "size",
@@ -3470,8 +3511,25 @@
         "nullGood": true
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "createFileMappingNuma_flProtect",
+        "exactGood": [
+          0,
+          2,
+          4,
+          8,
+          32,
+          64,
+          128,
+          16777216,
+          67108864,
+          134217728,
+          268435456,
+          285212672,
+          1073741824,
+          2147483648
+        ]
       },
       {
         "kind": "integer",
@@ -3486,8 +3544,13 @@
         "nullGood": true
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "createFileMappingNuma_nndPreferred",
+        "exactGood": [
+          0,
+          4294967295
+        ]
       }
     ],
     "system": false
@@ -3515,7 +3578,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAccess"
       },
       {
         "kind": "integer",
@@ -3527,11 +3591,23 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "creationDisposition",
+        "exactGood": [
+          3,
+          2,
+          1,
+          4,
+          5
+        ]
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAttributes",
+        "exactGood": [
+          128
+        ]
       },
       {
         "kind": "handle"
@@ -4137,7 +4213,13 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "createRemoteThread_dwCreationFlags",
+        "exactGood": [
+          0,
+          4,
+          65536
+        ]
       },
       {
         "kind": "outptr",
@@ -4183,7 +4265,13 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "createRemoteThreadEx_dwCreationFlags",
+        "exactGood": [
+          0,
+          4,
+          65536
+        ]
       },
       {
         "kind": "ptr",
@@ -4460,7 +4548,13 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "createThread_dwCreationFlags",
+        "exactGood": [
+          0,
+          4,
+          65536
+        ]
       },
       {
         "kind": "outptr",
@@ -4703,11 +4797,18 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "createWaitableTimerEx_dwFlags",
+        "exactGood": [
+          0,
+          1,
+          2
+        ]
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "timerAccess"
       }
     ],
     "system": false
@@ -5734,14 +5835,21 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "tokenAccess"
       },
       {
         "kind": "bool"
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "duplicateHandle_dwOptions",
+        "exactGood": [
+          0,
+          1,
+          2
+        ]
       }
     ],
     "system": false,
@@ -6372,7 +6480,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "loadLibraryFlags"
       },
       {
         "kind": "integer",
@@ -6440,7 +6549,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "loadLibraryFlags"
       },
       {
         "kind": "integer",
@@ -6498,7 +6608,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "loadLibraryFlags"
       },
       {
         "kind": "integer",
@@ -9535,7 +9646,8 @@
     "params": [
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "loadLibraryFlags"
       },
       {
         "kind": "stringptr",
@@ -15047,8 +15159,90 @@
     ],
     "params": [
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "isProcessorFeaturePresent_ProcessorFeature",
+        "exactGood": [
+          0,
+          1,
+          2,
+          3,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          29,
+          30,
+          31,
+          34,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          88,
+          89
+        ]
       }
     ],
     "system": false
@@ -15666,7 +15860,13 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "lockFileEx_dwFlags",
+        "exactGood": [
+          0,
+          1,
+          2
+        ]
       },
       {
         "kind": "integer",
@@ -16483,8 +16683,15 @@
         "zeroGood": true
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "mapViewOfFile3_AllocationType",
+        "exactGood": [
+          0,
+          8192,
+          16384,
+          536870912
+        ]
       },
       {
         "kind": "integer",
@@ -16536,8 +16743,15 @@
         "zeroGood": true
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "mapViewOfFile3FromApp_AllocationType",
+        "exactGood": [
+          0,
+          8192,
+          16384,
+          536870912
+        ]
       },
       {
         "kind": "integer",
@@ -16572,7 +16786,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAccess"
       },
       {
         "kind": "integer",
@@ -16612,7 +16827,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAccess"
       },
       {
         "kind": "integer",
@@ -16653,7 +16869,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAccess"
       },
       {
         "kind": "integer",
@@ -17249,7 +17466,8 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "directoryAccess"
       },
       {
         "kind": "ptr"
@@ -17273,7 +17491,11 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "eventAccess",
+        "exactGood": [
+          2031619
+        ]
       },
       {
         "kind": "ptr",
@@ -17386,7 +17608,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "ntCreateOptions"
       },
       {
         "kind": "outptr",
@@ -17463,7 +17686,11 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "mutexAccess",
+        "exactGood": [
+          2031617
+        ]
       },
       {
         "kind": "ptr",
@@ -17609,7 +17836,8 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "symbolicLinkAccess"
       },
       {
         "kind": "ptr"
@@ -18299,7 +18527,8 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "directoryAccess"
       },
       {
         "kind": "ptr"
@@ -18321,7 +18550,11 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "eventAccess",
+        "exactGood": [
+          2031619
+        ]
       },
       {
         "kind": "ptr"
@@ -18406,7 +18639,11 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "mutexAccess",
+        "exactGood": [
+          2031617
+        ]
       },
       {
         "kind": "ptr"
@@ -18481,7 +18718,8 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "symbolicLinkAccess"
       },
       {
         "kind": "ptr"
@@ -19821,11 +20059,16 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "tokenAccess"
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAttributes",
+        "exactGood": [
+          128
+        ]
       }
     ],
     "system": false
@@ -19866,7 +20109,11 @@
     ],
     "params": [
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "eventAccess",
+        "exactGood": [
+          2031619
+        ]
       },
       {
         "kind": "bool"
@@ -19945,7 +20192,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAccess"
       },
       {
         "kind": "integer",
@@ -19957,7 +20205,11 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAttributes",
+        "exactGood": [
+          128
+        ]
       }
     ],
     "system": false
@@ -19973,7 +20225,8 @@
     ],
     "params": [
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "fileAccess"
       },
       {
         "kind": "bool"
@@ -19997,7 +20250,8 @@
     "params": [
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAccess"
       },
       {
         "kind": "bool"
@@ -20021,7 +20275,11 @@
     "params": [
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "processAccess",
+        "exactGood": [
+          2035711
+        ]
       },
       {
         "kind": "bool"
@@ -20044,7 +20302,11 @@
     ],
     "params": [
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "mutexAccess",
+        "exactGood": [
+          2031617
+        ]
       },
       {
         "kind": "bool"
@@ -20161,7 +20423,11 @@
     ],
     "params": [
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "semaphoreAccess",
+        "exactGood": [
+          2031619
+        ]
       },
       {
         "kind": "bool"
@@ -20237,7 +20503,11 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "processAccess",
+        "exactGood": [
+          2035711
+        ]
       },
       {
         "kind": "bool"
@@ -20280,7 +20550,8 @@
     "params": [
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "timerAccess"
       },
       {
         "kind": "bool"
@@ -25458,7 +25729,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAccess"
       },
       {
         "kind": "integer",
@@ -25466,7 +25738,11 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAttributes",
+        "exactGood": [
+          128
+        ]
       }
     ],
     "system": false
@@ -26853,7 +27129,15 @@
     "params": [
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "setDefaultDllDirectories_DirectoryFlags",
+        "exactGood": [
+          0,
+          512,
+          1024,
+          2048,
+          4096
+        ]
       }
     ],
     "system": false
@@ -27022,7 +27306,11 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "fileAttributes",
+        "exactGood": [
+          128
+        ]
       },
       {
         "kind": "handle"
@@ -27389,7 +27677,13 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "setHandleInformation_dwFlags",
+        "exactGood": [
+          0,
+          1,
+          2
+        ]
       }
     ],
     "system": false,
@@ -27554,8 +27848,20 @@
         "kind": "handle"
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "setPriorityClass_dwPriorityClass",
+        "exactGood": [
+          0,
+          32,
+          64,
+          128,
+          256,
+          16384,
+          32768,
+          1048576,
+          2097152
+        ]
       }
     ],
     "system": false
@@ -27796,7 +28102,12 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "setProcessShutdownParameters_dwFlags",
+        "exactGood": [
+          0,
+          1
+        ]
       }
     ],
     "system": false
@@ -27883,7 +28194,15 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "setProcessWorkingSetSizeEx_Flags",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8
+        ]
       }
     ],
     "system": false
@@ -28011,7 +28330,15 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "setSystemFileCacheSize_Flags",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8
+        ]
       }
     ],
     "system": false
@@ -28629,7 +28956,16 @@
         "kind": "handle"
       },
       {
-        "kind": "integer"
+        "kind": "flags",
+        "flags": "setThreadPriority_nPriority",
+        "exactGood": [
+          0,
+          1,
+          2,
+          15,
+          65536,
+          131072
+        ]
       }
     ],
     "system": false,
@@ -33658,7 +33994,13 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "unmapViewOfFile2_UnmapFlags",
+        "exactGood": [
+          0,
+          1,
+          2
+        ]
       }
     ],
     "system": false
@@ -33678,7 +34020,13 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "unmapViewOfFileEx_UnmapFlags",
+        "exactGood": [
+          0,
+          1,
+          2
+        ]
       }
     ],
     "system": false
@@ -34110,8 +34458,22 @@
         "zeroGood": true
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "virtualAlloc2_AllocationType",
+        "exactGood": [
+          0,
+          4096,
+          8192,
+          16384,
+          262144,
+          524288,
+          1048576,
+          4194304,
+          16777216,
+          536870912,
+          541065216
+        ]
       },
       {
         "kind": "integer",
@@ -34154,8 +34516,22 @@
         "zeroGood": true
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "virtualAlloc2FromApp_AllocationType",
+        "exactGood": [
+          0,
+          4096,
+          8192,
+          16384,
+          262144,
+          524288,
+          1048576,
+          2097152,
+          4194304,
+          16777216,
+          536870912
+        ]
       },
       {
         "kind": "integer",
@@ -34241,8 +34617,19 @@
         "zeroGood": true
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "virtualAllocExNuma_flAllocationType",
+        "exactGood": [
+          0,
+          4096,
+          8192,
+          524288,
+          1048576,
+          4194304,
+          16777216,
+          536870912
+        ]
       },
       {
         "kind": "integer",
@@ -34275,8 +34662,20 @@
         "zeroGood": true
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "virtualAllocFromApp_AllocationType",
+        "exactGood": [
+          0,
+          4096,
+          8192,
+          524288,
+          1048576,
+          2097152,
+          4194304,
+          16777216,
+          536870912
+        ]
       },
       {
         "kind": "integer",
@@ -35678,7 +36077,8 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "directoryAccess"
       },
       {
         "kind": "ptr"
@@ -35702,7 +36102,11 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "eventAccess",
+        "exactGood": [
+          2031619
+        ]
       },
       {
         "kind": "ptr",
@@ -35815,7 +36219,8 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "ntCreateOptions"
       },
       {
         "kind": "outptr",
@@ -35892,7 +36297,11 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "mutexAccess",
+        "exactGood": [
+          2031617
+        ]
       },
       {
         "kind": "ptr",
@@ -36038,7 +36447,8 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "symbolicLinkAccess"
       },
       {
         "kind": "ptr"
@@ -36728,7 +37138,8 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "directoryAccess"
       },
       {
         "kind": "ptr"
@@ -36750,7 +37161,11 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "eventAccess",
+        "exactGood": [
+          2031619
+        ]
       },
       {
         "kind": "ptr"
@@ -36835,7 +37250,11 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "mutexAccess",
+        "exactGood": [
+          2031617
+        ]
       },
       {
         "kind": "ptr"
@@ -36910,7 +37329,8 @@
         "kind": "outptr"
       },
       {
-        "kind": "flags"
+        "kind": "flags",
+        "flags": "symbolicLinkAccess"
       },
       {
         "kind": "ptr"

@@ -120,7 +120,8 @@ ntCreateDisposition                     ntCreateOptions
 sectionAccess     registryAccess        registryType
 tokenAccess       serviceAccess         scmAccess
 eventCreateFlags  eventAccess           mutexAccess
-semaphoreAccess
+semaphoreAccess   timerAccess           directoryAccess
+symbolicLinkAccess
 ```
 
 Add a new group by appending to `FLAG_DEFS` in [app.js](../app.js) — keys
@@ -200,7 +201,7 @@ That's it — no rebuild, the app picks it up next time you reload.
 
 ## Auto-generation
 
-Two scripts under `tools/`:
+Four scripts under `tools/`:
 
 - **`tools/build-catalog.mjs`** — scrapes Microsoft Learn for every header
   under `_base` (and `fileapi.h` + `processthreadsapi.h`), parses the C
@@ -210,8 +211,20 @@ Two scripts under `tools/`:
 - **`tools/add-nt-apis.mjs`** — adds the curated list of injection /
   anti-debug / ALPC Nt APIs that Microsoft doesn't fully document, then
   mirrors every `Nt*` entry as a `Zw*` alias.
+- **`tools/extract-flag-constants.mjs`** — re-reads the cached MS Learn
+  HTML for each function, parses `<dl><dt><b>NAME</b></dt><dt>0xN</dt>`
+  value tables out of the parameter section, generates per-function
+  `FLAG_DEFS` groups, and updates the entries' `flags`/`enum` params
+  to reference them with `exactGood`. Skips params that already have
+  a `flags:` group set.
+- **`tools/link-existing-flag-groups.mjs`** — backfills params whose
+  names match known patterns (e.g. `dwShareMode` → `fileShare`,
+  `DesiredAccess` on a Process-category entry → `processAccess`)
+  against the existing `FLAG_DEFS` groups in app.js. Catches the long
+  tail of params whose MSDN page links out to a separate constants
+  page instead of enumerating values inline.
 
-Both are idempotent.
+All four are idempotent.
 
 ---
 
