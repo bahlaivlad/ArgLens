@@ -907,3 +907,67 @@ textarea:focus {
     width: 100%;
   }
 }
+
+/* ---------------- Corner animation (pixel art) ---------------- */
+
+.corner-anim {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  pointer-events: none;
+  z-index: 5;
+  filter: drop-shadow(0 3px 8px rgba(20, 16, 12, 0.22));
+  user-select: none;
+}
+
+.ca-svg {
+  display: block;
+  width: 96px;
+  height: 84px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.ca-indicator {
+  animation: ca-step 5s steps(1, end) infinite, ca-blink 1s ease-in-out infinite;
+}
+
+@keyframes ca-step {
+  0%,  19% { transform: translateY(0); }
+  20%, 39% { transform: translateY(6px); }
+  40%, 59% { transform: translateY(12px); }
+  60%, 79% { transform: translateY(18px); }
+  80%, 99% { transform: translateY(24px); }
+}
+
+@keyframes ca-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.45; }
+}
+
+.ca-key-f7 {
+  animation: ca-key-shift 1s steps(1, end) infinite;
+}
+
+.ca-key-f7 > rect:first-of-type {
+  animation: ca-key-body 1s steps(1, end) infinite;
+}
+
+@keyframes ca-key-shift {
+  0%,  18% { transform: translateY(1px); }
+  19%, 100% { transform: translateY(0); }
+}
+
+@keyframes ca-key-body {
+  0%,  18% { fill: #c2613f; }
+  19%, 100% { fill: #2a3245; }
+}
+
+@media (max-width: 980px) {
+  .corner-anim { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .corner-anim { display: none; }
+}
