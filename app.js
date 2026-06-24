@@ -1286,7 +1286,7 @@ function renderResults(results, selectedIndex = 0) {
         return `
           <div class="candidate-signature">
             <span class="prototype-text">${escapeHtml(signature)}</span>
-            <button class="copy-button" type="button" data-copy="${escapeHtml(signature)}" aria-label="Copy ${escapeHtml(name)} prototype">${copyIconSvg()} copy</button>
+            <button class="copy-button" type="button" data-copy="${escapeHtml(signature)}" title="Copy the ${escapeHtml(name)} prototype to the clipboard" aria-label="Copy ${escapeHtml(name)} prototype">${copyIconSvg()} copy</button>
           </div>
         `;
       }).join("");
@@ -1295,7 +1295,7 @@ function renderResults(results, selectedIndex = 0) {
         return `
           <div class="ida-prototype">
             <span class="prototype-text">${escapeHtml(idaPrototype)}</span>
-            <button class="copy-button" type="button" data-copy="${escapeHtml(idaPrototype)}" aria-label="Copy IDA prototype for ${escapeHtml(name)}">${copyIconSvg()} copy</button>
+            <button class="copy-button" type="button" data-copy="${escapeHtml(idaPrototype)}" title="Copy the IDA-compatible function-pointer prototype for ${escapeHtml(name)}" aria-label="Copy IDA prototype for ${escapeHtml(name)}">${copyIconSvg()} copy</button>
           </div>
         `;
       }).join("");
@@ -1331,7 +1331,7 @@ function renderResults(results, selectedIndex = 0) {
               ${idaPrototypesHtml}
             </div>
           </div>
-          <a class="doc-link" href="${escapeHtml(msdnUrl(entry))}" target="_blank" rel="noreferrer">MSDN ↗</a>
+          <a class="doc-link" href="${escapeHtml(msdnUrl(entry))}" target="_blank" rel="noreferrer" title="Open the Microsoft Learn documentation for ${escapeHtml(entry.name)}">MSDN ↗</a>
         </div>
         <div class="evidence-list">${evidenceHtml}</div>
       `;

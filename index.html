@@ -31,14 +31,14 @@
     <main class="page">
       <section class="input-card">
         <div class="mode-tabs" role="tablist" aria-label="Input mode">
-          <button id="manualTab" class="active" type="button" role="tab" aria-selected="true">
+          <button id="manualTab" class="active" type="button" role="tab" aria-selected="true" title="Enter argument values by hand">
             <svg viewBox="0 0 24 24" aria-hidden="true" class="tab-icon">
               <path d="M12 20h9"/>
               <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/>
             </svg>
             Manual entry
           </button>
-          <button id="pasteTab" type="button" role="tab" aria-selected="false">
+          <button id="pasteTab" type="button" role="tab" aria-selected="false" title="Paste x86 stack pushes or x64 register setup and let ArgLens extract the arguments">
             <svg viewBox="0 0 24 24" aria-hidden="true" class="tab-icon">
               <rect x="8" y="3" width="8" height="4" rx="1"/>
               <path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/>
@@ -82,19 +82,19 @@
           <div class="count-block">
             <label for="paramCount">Argument count</label>
             <div class="count-controls" aria-label="Argument count presets">
-              <button class="count-button" type="button" data-count="1">1</button>
-              <button class="count-button" type="button" data-count="2">2</button>
-              <button class="count-button" type="button" data-count="3">3</button>
-              <button class="count-button" type="button" data-count="4">4</button>
-              <button class="count-button" type="button" data-count="5">5</button>
-              <button class="count-button" type="button" data-count="6">6</button>
+              <button class="count-button" type="button" data-count="1" title="Set argument count to 1">1</button>
+              <button class="count-button" type="button" data-count="2" title="Set argument count to 2">2</button>
+              <button class="count-button" type="button" data-count="3" title="Set argument count to 3">3</button>
+              <button class="count-button" type="button" data-count="4" title="Set argument count to 4">4</button>
+              <button class="count-button" type="button" data-count="5" title="Set argument count to 5">5</button>
+              <button class="count-button" type="button" data-count="6" title="Set argument count to 6">6</button>
               <span>7+</span>
-              <input id="paramCount" type="number" min="0" max="12" placeholder="7" aria-label="Custom argument count (7 or more)">
+              <input id="paramCount" type="number" min="0" max="12" placeholder="7" title="Type a custom argument count (7 to 12)" aria-label="Custom argument count (7 or more)">
             </div>
           </div>
 
           <div id="paramInputs" class="param-inputs"></div>
-          <button id="matchBtn" class="primary-button" type="button">Match functions</button>
+          <button id="matchBtn" class="primary-button" type="button" title="Re-rank functions against the current argument values">Match functions</button>
         </div>
 
         <div id="pastePanel" class="mode-panel" role="tabpanel" aria-labelledby="pasteTab" hidden>
@@ -243,10 +243,10 @@
       <div class="param-row">
         <label class="param-label"></label>
         <div class="param-edit">
-          <input class="param-value" type="text" spellcheck="false" aria-label="Argument value">
-          <button class="quick-value" type="button" data-value="0">0/NULL</button>
-          <button class="quick-value" type="button" data-value="-1">-1</button>
-          <button class="quick-value" type="button" data-value="unknown">?</button>
+          <input class="param-value" type="text" spellcheck="false" aria-label="Argument value" title="Enter a value: hex (40h, 0x3000), decimal (4096), or NULL. Click ? to mark as unknown.">
+          <button class="quick-value" type="button" data-value="0" title="Set this argument to 0 / NULL">0/NULL</button>
+          <button class="quick-value" type="button" data-value="-1" title="Set this argument to -1 (often INVALID_HANDLE_VALUE or INFINITE)">-1</button>
+          <button class="quick-value" type="button" data-value="unknown" title="Mark this argument as unknown — it will be skipped in scoring">?</button>
         </div>
       </div>
     </template>
