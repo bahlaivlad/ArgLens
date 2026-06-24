@@ -13,7 +13,15 @@
   <body>
     <header class="app-header">
       <div class="brand">
-        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 6 L4 12 L9 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 6 L20 12 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="9.5" cy="12" r="1.05" fill="currentColor"/>
+            <circle cx="12" cy="12" r="1.05" fill="currentColor"/>
+            <circle cx="14.5" cy="12" r="1.05" fill="currentColor"/>
+          </svg>
+        </span>
         <strong>apiguess</strong>
         <span>guess a WinAPI call from its arguments</span>
       </div>
@@ -23,13 +31,35 @@
     <main class="page">
       <section class="input-card">
         <div class="mode-tabs" role="tablist" aria-label="Input mode">
-          <button id="manualTab" class="active" type="button" role="tab" aria-selected="true">Manual entry</button>
-          <button id="pasteTab" type="button" role="tab" aria-selected="false">Paste disassembly</button>
+          <button id="manualTab" class="active" type="button" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="tab-icon">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+            </svg>
+            Manual entry
+          </button>
+          <button id="pasteTab" type="button" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="tab-icon">
+              <rect x="8" y="3" width="8" height="4" rx="1"/>
+              <path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/>
+            </svg>
+            Paste disassembly
+          </button>
         </div>
 
         <div id="manualPanel" class="mode-panel active" role="tabpanel" aria-labelledby="manualTab">
           <div class="section-kicker-row">
-            <div class="section-kicker">Parameters</div>
+            <div class="section-kicker">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="kicker-icon">
+                <circle cx="5" cy="7" r="1"/>
+                <circle cx="5" cy="12" r="1"/>
+                <circle cx="5" cy="17" r="1"/>
+                <line x1="10" y1="7" x2="19" y2="7"/>
+                <line x1="10" y1="12" x2="19" y2="12"/>
+                <line x1="10" y1="17" x2="19" y2="17"/>
+              </svg>
+              Parameters
+            </div>
             <div class="kicker-actions">
               <button id="clearArgs" class="icon-button" type="button" title="Clear all argument values" aria-label="Clear argument values">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -68,7 +98,13 @@
         </div>
 
         <div id="pastePanel" class="mode-panel" role="tabpanel" aria-labelledby="pasteTab" hidden>
-          <div class="section-kicker">Disassembly</div>
+          <div class="section-kicker">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="kicker-icon">
+              <polyline points="9 6 3 12 9 18"/>
+              <polyline points="15 6 21 12 15 18"/>
+            </svg>
+            Disassembly
+          </div>
           <p class="panel-copy">Paste x86 stack pushes or x64 register setup; arguments update automatically.</p>
           <div class="code-editor">
             <pre class="code-highlight" aria-hidden="true"><code id="codeHighlight"></code></pre>
@@ -81,7 +117,13 @@
       <section class="results-column">
         <div class="results-topline">
           <div>
-            <div class="section-kicker">Candidates</div>
+            <div class="section-kicker">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="kicker-icon">
+                <circle cx="11" cy="11" r="6"/>
+                <line x1="15.5" y1="15.5" x2="20" y2="20"/>
+              </svg>
+              Candidates
+            </div>
           </div>
           <div id="resultMeta">0 ranked</div>
         </div>

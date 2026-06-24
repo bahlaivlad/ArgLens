@@ -1187,7 +1187,12 @@ function renderParsedArgs() {
     </div>`;
   }).join("");
   els.parsedArgs.innerHTML = `
-    <div class="section-kicker">Parsed arguments</div>
+    <div class="section-kicker">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="kicker-icon">
+        <polyline points="3 12 7 8 7 11 17 11 17 8 21 12 17 16 17 13 7 13 7 16 3 12"/>
+      </svg>
+      Parsed arguments
+    </div>
     <div class="parsed-args-list">${rows}</div>
   `;
 }
@@ -1315,7 +1320,14 @@ function renderResults(results, selectedIndex = 0) {
             </div>
             <div class="candidate-signatures">${signaturesHtml}</div>
             <div class="ida-prototypes">
-              <div class="prototype-label">IDA-compatible prototype</div>
+              <div class="prototype-label">
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="kicker-icon">
+                  <polyline points="9 6 4 12 9 18"/>
+                  <polyline points="15 6 20 12 15 18"/>
+                  <line x1="13" y1="4" x2="11" y2="20"/>
+                </svg>
+                IDA-compatible prototype
+              </div>
               ${idaPrototypesHtml}
             </div>
           </div>
