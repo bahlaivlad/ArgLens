@@ -94,7 +94,17 @@ relax or sharpen the scoring. The kinds are:
   kind: "size",
   zeroGood: true,           // SIZE_T 0 is a valid free / unmap
 }
+
+{
+  kind: "integer",
+  nonNegative: true,        // reject negative values
+                            // (e.g., CreateSemaphore's lInitialCount)
+}
 ```
+
+`nonNegative: true` works on any kind whose values fail when negative
+(common for `integer`, `size`). Use it when MSDN explicitly says
+"must be greater than or equal to zero".
 
 ### `FLAG_DEFS` group names
 
@@ -109,6 +119,8 @@ socketAf          socketType            socketProtocol
 ntCreateDisposition                     ntCreateOptions
 sectionAccess     registryAccess        registryType
 tokenAccess       serviceAccess         scmAccess
+eventCreateFlags  eventAccess           mutexAccess
+semaphoreAccess
 ```
 
 Add a new group by appending to `FLAG_DEFS` in [app.js](../app.js) — keys

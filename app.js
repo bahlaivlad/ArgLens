@@ -189,6 +189,22 @@ const FLAG_DEFS = {
     0x0002: "SC_MANAGER_CREATE_SERVICE",
     0x0004: "SC_MANAGER_ENUMERATE_SERVICE",
     0x000f003f: "SC_MANAGER_ALL_ACCESS"
+  },
+  eventCreateFlags: {
+    0x00000001: "CREATE_EVENT_MANUAL_RESET",
+    0x00000002: "CREATE_EVENT_INITIAL_SET"
+  },
+  eventAccess: {
+    0x0002: "EVENT_MODIFY_STATE",
+    0x001f0003: "EVENT_ALL_ACCESS"
+  },
+  mutexAccess: {
+    0x0001: "MUTEX_MODIFY_STATE",
+    0x001f0001: "MUTEX_ALL_ACCESS"
+  },
+  semaphoreAccess: {
+    0x0002: "SEMAPHORE_MODIFY_STATE",
+    0x001f0003: "SEMAPHORE_ALL_ACCESS"
   }
 };
 
@@ -215,7 +231,7 @@ const DOC_HEADER_OVERRIDES = {
   CreatePipe: "namedpipeapi",
   CreateProcess: "processthreadsapi",
   CreateRemoteThread: "processthreadsapi",
-  CreateSemaphore: "synchapi",
+  CreateSemaphore: "winbase",
   CreateService: "winsvc",
   CreateThread: "processthreadsapi",
   CreateToolhelp32Snapshot: "tlhelp32",
@@ -469,8 +485,8 @@ const ASM_KEYWORDS = new Set([
   "offset", "short", "near", "far", "large", "small"
 ]);
 
-let currentValues = ["0", "15400h", "3000h", "40h"];
-let currentCount = 4;
+let currentValues = [];
+let currentCount = 0;
 let currentResults = [];
 let selectedResultName = "";
 let disassemblyAnalysis = { fromPaste: false, argStorages: [], returnStorage: "eax" };
@@ -720,6 +736,10 @@ function scoreParam(spec, arg) {
     return { score: 0, note: "negative size is not accepted here", compatible: false };
   }
 
+  if (spec.nonNegative && value < 0) {
+    return { score: 0, note: "negative value is not accepted here", compatible: false };
+  }
+
   let score = 0;
   const notes = [];
 
@@ -815,6 +835,7 @@ function scoreApi(entry, args) {
       index: i + 1,
       signature: entry.signature[i],
       arg: args[i],
+      kind: entry.params[i].kind,
       note: result.note,
       score: result.score,
       neutral: result.neutral
@@ -1262,7 +1283,10 @@ function renderResults(results, selectedIndex = 0) {
   if (!results.length) {
     const empty = document.createElement("div");
     empty.className = "empty-state";
-    empty.textContent = "No compatible APIs for these arguments.";
+    const hasInput = currentValues.some((v) => v && !/^(unknown|\?|unk)$/i.test(String(v)));
+    empty.textContent = hasInput
+      ? "No compatible APIs for these arguments."
+      : "Input arguments or paste disassembly to start a search.";
     els.results.append(empty);
     return;
   }
@@ -1479,13 +1503,16 @@ function describeEvidence(item) {
   const arg = item.arg;
   if (arg.unknown) return { main: `${name} = unknown`, note: "Ignored while ranking" };
   if (arg.value === 0) {
+    if (item.kind === "bool") return { main: `${name} = FALSE`, note: item.note };
     return { main: `${name} = NULL`, note: name === "lpAddress" ? "Let the system choose the base address" : item.note };
   }
-  if (/size|bytes|region/i.test(item.note) || /size|length|count|bytes/i.test(name)) {
-    return { main: `${name} = ${arg.value} bytes`, note: `≈ ${Math.max(1, Math.round(arg.value / 1024))} KB region` };
+  if (item.kind === "size" && arg.value > 0) {
+    const kb = arg.value / 1024;
+    const sizeNote = kb >= 1 ? `≈ ${kb >= 10 ? Math.round(kb) : kb.toFixed(1)} KB region` : "size in bytes";
+    return { main: `${name} = ${arg.value} bytes`, note: sizeNote };
   }
   const constantNote = item.note.split(",")[0];
-  if (/[A-Z0-9_]+\s*(\||$)/.test(constantNote)) {
+  if (/[A-Z0-9_]+\s*(\||$)/.test(constantNote) && /[A-Z]/.test(constantNote)) {
     return { main: `${name} = ${constantNote}`, note: flagNamesFromValue(arg.value).join(" | ") || item.note };
   }
   return { main: `${name} = ${displayArgValue(arg)}`, note: item.note };

@@ -3121,14 +3121,25 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "flags": "eventCreateFlags",
+        "zeroGood": true,
+        "exactGood": [
+          0,
+          1,
+          2,
+          3
+        ]
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "flags": "eventAccess",
+        "exactGood": [
+          2031619
+        ]
       }
     ],
-    "system": false
+    "system": false,
+    "manual": true
   },
   {
     "name": "CreateFiber",
@@ -3732,14 +3743,23 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "exactGood": [
+          0,
+          1
+        ],
+        "allowUnknownBits": false
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "flags": "mutexAccess",
+        "exactGood": [
+          2031617
+        ]
       }
     ],
-    "system": false
+    "system": false,
+    "manual": true
   },
   {
     "name": "CreateNamedPipeA/W",
@@ -4193,10 +4213,12 @@
       },
       {
         "kind": "integer",
-        "zeroGood": true
+        "zeroGood": true,
+        "nonNegative": true
       },
       {
-        "kind": "integer"
+        "kind": "integer",
+        "nonNegative": true
       },
       {
         "kind": "stringptr",
@@ -4225,11 +4247,13 @@
       },
       {
         "kind": "size",
-        "zeroGood": true
+        "zeroGood": true,
+        "nonNegative": true
       },
       {
         "kind": "size",
-        "zeroGood": true
+        "zeroGood": true,
+        "nonNegative": true
       },
       {
         "kind": "stringptr",
@@ -4237,14 +4261,21 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "exactGood": [
+          0
+        ]
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "flags": "semaphoreAccess",
+        "exactGood": [
+          2031619
+        ]
       }
     ],
-    "system": false
+    "system": false,
+    "manual": true
   },
   {
     "name": "CreateServiceA/W",
