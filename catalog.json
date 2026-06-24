@@ -17054,6 +17054,142 @@
     "manual": true
   },
   {
+    "name": "NtAlpcConnectPort",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "PHANDLE PortHandle",
+      "PUNICODE_STRING PortName",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PALPC_PORT_ATTRIBUTES PortAttributes",
+      "ULONG Flags",
+      "PSID RequiredServerSid",
+      "PPORT_MESSAGE ConnectionMessage",
+      "PULONG BufferLength",
+      "PALPC_MESSAGE_ATTRIBUTES OutMessageAttributes",
+      "PALPC_MESSAGE_ATTRIBUTES InMessageAttributes",
+      "PLARGE_INTEGER Timeout"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "NtAlpcCreatePort",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "PHANDLE PortHandle",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PALPC_PORT_ATTRIBUTES PortAttributes"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "NtAlpcSendWaitReceivePort",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "HANDLE PortHandle",
+      "ULONG Flags",
+      "PPORT_MESSAGE SendMessage",
+      "PALPC_MESSAGE_ATTRIBUTES SendMessageAttributes",
+      "PPORT_MESSAGE ReceiveMessage",
+      "PSIZE_T BufferLength",
+      "PALPC_MESSAGE_ATTRIBUTES ReceiveMessageAttributes",
+      "PLARGE_INTEGER Timeout"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
     "name": "NtClose",
     "module": "ntdll",
     "category": "System",
@@ -17067,6 +17203,28 @@
     ],
     "system": true,
     "manual": true
+  },
+  {
+    "name": "NtCreateDirectoryObject",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PHANDLE DirectoryHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true
   },
   {
     "name": "NtCreateEvent",
@@ -17208,6 +17366,58 @@
     "manual": true
   },
   {
+    "name": "NtCreateLowBoxToken",
+    "module": "ntdll",
+    "category": "Security",
+    "signature": [
+      "PHANDLE TokenHandle",
+      "HANDLE ExistingTokenHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PSID PackageSid",
+      "ULONG CapabilityCount",
+      "PSID_AND_ATTRIBUTES Capabilities",
+      "ULONG HandleCount",
+      "PHANDLE Handles"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "flags",
+        "flags": "tokenAccess"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
     "name": "NtCreateMutant",
     "module": "ntdll",
     "category": "Sync",
@@ -17234,6 +17444,79 @@
     ],
     "system": true,
     "manual": true
+  },
+  {
+    "name": "NtCreateNamedPipeFile",
+    "module": "ntdll",
+    "category": "Files",
+    "signature": [
+      "PHANDLE FileHandle",
+      "ULONG DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "ULONG ShareAccess",
+      "ULONG CreateDisposition",
+      "ULONG CreateOptions",
+      "ULONG NamedPipeType",
+      "ULONG ReadMode",
+      "ULONG CompletionMode",
+      "ULONG MaximumInstances",
+      "ULONG InboundQuota",
+      "ULONG OutboundQuota",
+      "PLARGE_INTEGER DefaultTimeout"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "fileAccess"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "fileShare"
+      },
+      {
+        "kind": "enum",
+        "flags": "ntCreateDisposition"
+      },
+      {
+        "kind": "flags",
+        "flags": "ntCreateOptions"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "integer"
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
   },
   {
     "name": "NtCreateSection",
@@ -17279,6 +17562,76 @@
     ],
     "system": true,
     "manual": true
+  },
+  {
+    "name": "NtCreateSymbolicLinkObject",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PHANDLE LinkHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PUNICODE_STRING LinkTarget"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "NtCreateThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "PHANDLE ThreadHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "HANDLE ProcessHandle",
+      "PCLIENT_ID ClientId",
+      "PCONTEXT ThreadContext",
+      "PINITIAL_TEB InitialTeb",
+      "BOOLEAN CreateSuspended"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "threadAccess"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "bool"
+      }
+    ],
+    "system": true
   },
   {
     "name": "NtCreateThreadEx",
@@ -17342,6 +17695,67 @@
     ],
     "system": true,
     "manual": true
+  },
+  {
+    "name": "NtCreateUserProcess",
+    "module": "ntdll",
+    "category": "Process",
+    "signature": [
+      "PHANDLE ProcessHandle",
+      "PHANDLE ThreadHandle",
+      "ACCESS_MASK ProcessDesiredAccess",
+      "ACCESS_MASK ThreadDesiredAccess",
+      "POBJECT_ATTRIBUTES ProcessObjectAttributes",
+      "POBJECT_ATTRIBUTES ThreadObjectAttributes",
+      "ULONG ProcessFlags",
+      "ULONG ThreadFlags",
+      "PRTL_USER_PROCESS_PARAMETERS ProcessParameters",
+      "PPS_CREATE_INFO CreateInfo",
+      "PPS_ATTRIBUTE_LIST AttributeList"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "processAccess"
+      },
+      {
+        "kind": "flags",
+        "flags": "threadAccess"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
   },
   {
     "name": "NtDelayExecution",
@@ -17626,6 +18040,63 @@
     "manual": true
   },
   {
+    "name": "NtFsControlFile",
+    "module": "ntdll",
+    "category": "Files",
+    "signature": [
+      "HANDLE FileHandle",
+      "HANDLE Event",
+      "PIO_APC_ROUTINE ApcRoutine",
+      "PVOID ApcContext",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "ULONG FsControlCode",
+      "PVOID InputBuffer",
+      "ULONG InputBufferLength",
+      "PVOID OutputBuffer",
+      "ULONG OutputBufferLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "handle",
+        "nullGood": true
+      },
+      {
+        "kind": "codeptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "integer"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      }
+    ],
+    "system": true
+  },
+  {
     "name": "NtGetContextThread",
     "module": "ntdll",
     "category": "Threads",
@@ -17643,6 +18114,20 @@
     ],
     "system": true,
     "manual": true
+  },
+  {
+    "name": "NtLoadDriver",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PUNICODE_STRING DriverServiceName"
+    ],
+    "params": [
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true
   },
   {
     "name": "NtMapViewOfSection",
@@ -17765,6 +18250,28 @@
       {
         "kind": "integer",
         "zeroGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "NtOpenDirectoryObject",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PHANDLE DirectoryHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr"
       }
     ],
     "system": true
@@ -17928,6 +18435,28 @@
     ],
     "system": true,
     "manual": true
+  },
+  {
+    "name": "NtOpenSymbolicLinkObject",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PHANDLE LinkHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true
   },
   {
     "name": "NtOpenThread",
@@ -18163,6 +18692,29 @@
     "manual": true
   },
   {
+    "name": "NtQuerySymbolicLinkObject",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "HANDLE LinkHandle",
+      "PUNICODE_STRING LinkTarget",
+      "PULONG ReturnedLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
     "name": "NtQuerySystemInformation",
     "module": "ntdll",
     "category": "System",
@@ -18309,6 +18861,81 @@
     ],
     "system": true,
     "manual": true
+  },
+  {
+    "name": "NtQueueApcThreadEx",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "HANDLE UserApcReserveHandle",
+      "PPS_APC_ROUTINE ApcRoutine",
+      "PVOID ApcArgument1",
+      "PVOID ApcArgument2",
+      "PVOID ApcArgument3"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "handle",
+        "nullGood": true
+      },
+      {
+        "kind": "codeptr"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "NtRaiseHardError",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "NTSTATUS ErrorStatus",
+      "ULONG NumberOfParameters",
+      "ULONG UnicodeStringParameterMask",
+      "PULONG_PTR Parameters",
+      "ULONG ValidResponseOptions",
+      "PULONG Response"
+    ],
+    "params": [
+      {
+        "kind": "integer"
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "outptr"
+      }
+    ],
+    "system": true
   },
   {
     "name": "NtReadFile",
@@ -18600,6 +19227,32 @@
     "manual": true
   },
   {
+    "name": "NtSetInformationThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "THREADINFOCLASS ThreadInformationClass",
+      "PVOID ThreadInformation",
+      "ULONG ThreadInformationLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "size"
+      }
+    ],
+    "system": true
+  },
+  {
     "name": "NtSetValueKey",
     "module": "ntdll",
     "category": "Registry",
@@ -18637,6 +19290,20 @@
     "manual": true
   },
   {
+    "name": "NtShutdownSystem",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "SHUTDOWN_ACTION Action"
+    ],
+    "params": [
+      {
+        "kind": "enum"
+      }
+    ],
+    "system": true
+  },
+  {
     "name": "NtSuspendThread",
     "module": "ntdll",
     "category": "Threads",
@@ -18655,6 +19322,45 @@
     ],
     "system": true,
     "manual": true
+  },
+  {
+    "name": "NtSystemDebugControl",
+    "module": "ntdll",
+    "category": "Debug",
+    "signature": [
+      "SYSDBG_COMMAND Command",
+      "PVOID InputBuffer",
+      "ULONG InputBufferLength",
+      "PVOID OutputBuffer",
+      "ULONG OutputBufferLength",
+      "PULONG ReturnLength"
+    ],
+    "params": [
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
   },
   {
     "name": "NtTerminateProcess",
@@ -18676,6 +19382,40 @@
     ],
     "system": true,
     "manual": true
+  },
+  {
+    "name": "NtTerminateThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "NTSTATUS ExitStatus"
+    ],
+    "params": [
+      {
+        "kind": "handle",
+        "nullGood": true
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "NtUnloadDriver",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PUNICODE_STRING DriverServiceName"
+    ],
+    "params": [
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true
   },
   {
     "name": "NtUnmapViewOfSection",
@@ -34655,5 +35395,2614 @@
       }
     ],
     "system": false
+  },
+  {
+    "name": "ZwAdjustPrivilegesToken",
+    "module": "ntdll",
+    "category": "Security",
+    "signature": [
+      "HANDLE TokenHandle",
+      "BOOLEAN DisableAllPrivileges",
+      "PTOKEN_PRIVILEGES NewState",
+      "ULONG BufferLength",
+      "PTOKEN_PRIVILEGES PreviousState",
+      "PULONG ReturnLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "bool"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwAllocateVirtualMemory",
+    "module": "ntdll",
+    "category": "Memory",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "PVOID *BaseAddress",
+      "ULONG_PTR ZeroBits",
+      "PSIZE_T RegionSize",
+      "ULONG AllocationType",
+      "ULONG Protect"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "allocationType",
+        "exactGood": [
+          4096,
+          8192,
+          12288
+        ]
+      },
+      {
+        "kind": "flags",
+        "flags": "pageProtect",
+        "exactGood": [
+          4,
+          32,
+          64
+        ]
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwAlpcConnectPort",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "PHANDLE PortHandle",
+      "PUNICODE_STRING PortName",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PALPC_PORT_ATTRIBUTES PortAttributes",
+      "ULONG Flags",
+      "PSID RequiredServerSid",
+      "PPORT_MESSAGE ConnectionMessage",
+      "PULONG BufferLength",
+      "PALPC_MESSAGE_ATTRIBUTES OutMessageAttributes",
+      "PALPC_MESSAGE_ATTRIBUTES InMessageAttributes",
+      "PLARGE_INTEGER Timeout"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwAlpcCreatePort",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "PHANDLE PortHandle",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PALPC_PORT_ATTRIBUTES PortAttributes"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwAlpcSendWaitReceivePort",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "HANDLE PortHandle",
+      "ULONG Flags",
+      "PPORT_MESSAGE SendMessage",
+      "PALPC_MESSAGE_ATTRIBUTES SendMessageAttributes",
+      "PPORT_MESSAGE ReceiveMessage",
+      "PSIZE_T BufferLength",
+      "PALPC_MESSAGE_ATTRIBUTES ReceiveMessageAttributes",
+      "PLARGE_INTEGER Timeout"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwClose",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "HANDLE Handle"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwCreateDirectoryObject",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PHANDLE DirectoryHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwCreateEvent",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "PHANDLE EventHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "EVENT_TYPE EventType",
+      "BOOLEAN InitialState"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "bool"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwCreateFile",
+    "module": "ntdll",
+    "category": "Files",
+    "signature": [
+      "PHANDLE FileHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "PLARGE_INTEGER AllocationSize",
+      "ULONG FileAttributes",
+      "ULONG ShareAccess",
+      "ULONG CreateDisposition",
+      "ULONG CreateOptions",
+      "PVOID EaBuffer",
+      "ULONG EaLength"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "fileAccess"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "flags",
+        "flags": "fileAttributes"
+      },
+      {
+        "kind": "flags",
+        "flags": "fileShare"
+      },
+      {
+        "kind": "enum",
+        "flags": "ntCreateDisposition"
+      },
+      {
+        "kind": "flags",
+        "flags": "ntCreateOptions"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwCreateKey",
+    "module": "ntdll",
+    "category": "Registry",
+    "signature": [
+      "PHANDLE KeyHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "ULONG TitleIndex",
+      "PUNICODE_STRING Class",
+      "ULONG CreateOptions",
+      "PULONG Disposition"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "registryAccess"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwCreateLowBoxToken",
+    "module": "ntdll",
+    "category": "Security",
+    "signature": [
+      "PHANDLE TokenHandle",
+      "HANDLE ExistingTokenHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PSID PackageSid",
+      "ULONG CapabilityCount",
+      "PSID_AND_ATTRIBUTES Capabilities",
+      "ULONG HandleCount",
+      "PHANDLE Handles"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "flags",
+        "flags": "tokenAccess"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwCreateMutant",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "PHANDLE MutantHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "BOOLEAN InitialOwner"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "bool"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwCreateNamedPipeFile",
+    "module": "ntdll",
+    "category": "Files",
+    "signature": [
+      "PHANDLE FileHandle",
+      "ULONG DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "ULONG ShareAccess",
+      "ULONG CreateDisposition",
+      "ULONG CreateOptions",
+      "ULONG NamedPipeType",
+      "ULONG ReadMode",
+      "ULONG CompletionMode",
+      "ULONG MaximumInstances",
+      "ULONG InboundQuota",
+      "ULONG OutboundQuota",
+      "PLARGE_INTEGER DefaultTimeout"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "fileAccess"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "fileShare"
+      },
+      {
+        "kind": "enum",
+        "flags": "ntCreateDisposition"
+      },
+      {
+        "kind": "flags",
+        "flags": "ntCreateOptions"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "integer"
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwCreateSection",
+    "module": "ntdll",
+    "category": "Memory",
+    "signature": [
+      "PHANDLE SectionHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PLARGE_INTEGER MaximumSize",
+      "ULONG SectionPageProtection",
+      "ULONG AllocationAttributes",
+      "HANDLE FileHandle"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "sectionAccess"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "flags",
+        "flags": "pageProtect"
+      },
+      {
+        "kind": "flags",
+        "flags": "allocationType"
+      },
+      {
+        "kind": "handle",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwCreateSymbolicLinkObject",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PHANDLE LinkHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PUNICODE_STRING LinkTarget"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwCreateThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "PHANDLE ThreadHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "HANDLE ProcessHandle",
+      "PCLIENT_ID ClientId",
+      "PCONTEXT ThreadContext",
+      "PINITIAL_TEB InitialTeb",
+      "BOOLEAN CreateSuspended"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "threadAccess"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "bool"
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwCreateThreadEx",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "PHANDLE ThreadHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "HANDLE ProcessHandle",
+      "PVOID StartRoutine",
+      "PVOID Argument",
+      "ULONG CreateFlags",
+      "SIZE_T ZeroBits",
+      "SIZE_T StackSize",
+      "SIZE_T MaximumStackSize",
+      "PVOID AttributeList"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "threadAccess"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "codeptr"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwCreateUserProcess",
+    "module": "ntdll",
+    "category": "Process",
+    "signature": [
+      "PHANDLE ProcessHandle",
+      "PHANDLE ThreadHandle",
+      "ACCESS_MASK ProcessDesiredAccess",
+      "ACCESS_MASK ThreadDesiredAccess",
+      "POBJECT_ATTRIBUTES ProcessObjectAttributes",
+      "POBJECT_ATTRIBUTES ThreadObjectAttributes",
+      "ULONG ProcessFlags",
+      "ULONG ThreadFlags",
+      "PRTL_USER_PROCESS_PARAMETERS ProcessParameters",
+      "PPS_CREATE_INFO CreateInfo",
+      "PPS_ATTRIBUTE_LIST AttributeList"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "processAccess"
+      },
+      {
+        "kind": "flags",
+        "flags": "threadAccess"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwDelayExecution",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "BOOLEAN Alertable",
+      "PLARGE_INTEGER DelayInterval"
+    ],
+    "params": [
+      {
+        "kind": "bool"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwDeleteValueKey",
+    "module": "ntdll",
+    "category": "Registry",
+    "signature": [
+      "HANDLE KeyHandle",
+      "PUNICODE_STRING ValueName"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwDeviceIoControlFile",
+    "module": "ntdll",
+    "category": "Files",
+    "signature": [
+      "HANDLE FileHandle",
+      "HANDLE Event",
+      "PIO_APC_ROUTINE ApcRoutine",
+      "PVOID ApcContext",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "ULONG IoControlCode",
+      "PVOID InputBuffer",
+      "ULONG InputBufferLength",
+      "PVOID OutputBuffer",
+      "ULONG OutputBufferLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "handle",
+        "nullGood": true
+      },
+      {
+        "kind": "codeptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "integer"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwDuplicateObject",
+    "module": "ntdll",
+    "category": "Handles",
+    "signature": [
+      "HANDLE SourceProcessHandle",
+      "HANDLE SourceHandle",
+      "HANDLE TargetProcessHandle",
+      "PHANDLE TargetHandle",
+      "ACCESS_MASK DesiredAccess",
+      "ULONG HandleAttributes",
+      "ULONG Options"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwEnumerateKey",
+    "module": "ntdll",
+    "category": "Registry",
+    "signature": [
+      "HANDLE KeyHandle",
+      "ULONG Index",
+      "KEY_INFORMATION_CLASS KeyInformationClass",
+      "PVOID KeyInformation",
+      "ULONG Length",
+      "PULONG ResultLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "outptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwEnumerateValueKey",
+    "module": "ntdll",
+    "category": "Registry",
+    "signature": [
+      "HANDLE KeyHandle",
+      "ULONG Index",
+      "KEY_VALUE_INFORMATION_CLASS KeyValueInformationClass",
+      "PVOID KeyValueInformation",
+      "ULONG Length",
+      "PULONG ResultLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "outptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwFlushInstructionCache",
+    "module": "ntdll",
+    "category": "Memory",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "PVOID BaseAddress",
+      "SIZE_T Length"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwFlushKey",
+    "module": "ntdll",
+    "category": "Registry",
+    "signature": [
+      "HANDLE KeyHandle"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwFreeVirtualMemory",
+    "module": "ntdll",
+    "category": "Memory",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "PVOID *BaseAddress",
+      "PSIZE_T RegionSize",
+      "ULONG FreeType"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "allocationType",
+        "exactGood": [
+          16384,
+          32768
+        ]
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwFsControlFile",
+    "module": "ntdll",
+    "category": "Files",
+    "signature": [
+      "HANDLE FileHandle",
+      "HANDLE Event",
+      "PIO_APC_ROUTINE ApcRoutine",
+      "PVOID ApcContext",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "ULONG FsControlCode",
+      "PVOID InputBuffer",
+      "ULONG InputBufferLength",
+      "PVOID OutputBuffer",
+      "ULONG OutputBufferLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "handle",
+        "nullGood": true
+      },
+      {
+        "kind": "codeptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "integer"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwGetContextThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "PCONTEXT ThreadContext"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwLoadDriver",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PUNICODE_STRING DriverServiceName"
+    ],
+    "params": [
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwMapViewOfSection",
+    "module": "ntdll",
+    "category": "Memory",
+    "signature": [
+      "HANDLE SectionHandle",
+      "HANDLE ProcessHandle",
+      "PVOID *BaseAddress",
+      "ULONG_PTR ZeroBits",
+      "SIZE_T CommitSize",
+      "PLARGE_INTEGER SectionOffset",
+      "PSIZE_T ViewSize",
+      "SECTION_INHERIT InheritDisposition",
+      "ULONG AllocationType",
+      "ULONG Win32Protect"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "flags",
+        "flags": "allocationType",
+        "zeroGood": true
+      },
+      {
+        "kind": "flags",
+        "flags": "pageProtect"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwNotifyChangeMultipleKeys",
+    "module": "ntdll",
+    "category": "Native",
+    "signature": [
+      "HANDLE MasterKeyHandle",
+      "ULONG Count",
+      "OBJECT_ATTRIBUTES [] SubordinateObjects",
+      "HANDLE Event",
+      "PIO_APC_ROUTINE ApcRoutine",
+      "PVOID ApcContext",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "ULONG CompletionFilter",
+      "BOOLEAN WatchTree",
+      "PVOID Buffer",
+      "ULONG BufferSize",
+      "BOOLEAN Asynchronous"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwOpenDirectoryObject",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PHANDLE DirectoryHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwOpenEvent",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "PHANDLE EventHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwOpenFile",
+    "module": "ntdll",
+    "category": "Files",
+    "signature": [
+      "PHANDLE FileHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "ULONG ShareAccess",
+      "ULONG OpenOptions"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "fileAccess"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "fileShare"
+      },
+      {
+        "kind": "flags",
+        "flags": "ntCreateOptions"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwOpenKey",
+    "module": "ntdll",
+    "category": "Registry",
+    "signature": [
+      "PHANDLE KeyHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "registryAccess"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwOpenMutant",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "PHANDLE MutantHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwOpenProcess",
+    "module": "ntdll",
+    "category": "Process",
+    "signature": [
+      "PHANDLE ProcessHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PCLIENT_ID ClientId"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "processAccess"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwOpenProcessToken",
+    "module": "ntdll",
+    "category": "Security",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "ACCESS_MASK DesiredAccess",
+      "PHANDLE TokenHandle"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "flags",
+        "flags": "tokenAccess"
+      },
+      {
+        "kind": "outptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwOpenSymbolicLinkObject",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PHANDLE LinkHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwOpenThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "PHANDLE ThreadHandle",
+      "ACCESS_MASK DesiredAccess",
+      "POBJECT_ATTRIBUTES ObjectAttributes",
+      "PCLIENT_ID ClientId"
+    ],
+    "params": [
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "threadAccess"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwProtectVirtualMemory",
+    "module": "ntdll",
+    "category": "Memory",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "PVOID *BaseAddress",
+      "PSIZE_T RegionSize",
+      "ULONG NewProtect",
+      "PULONG OldProtect"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "flags",
+        "flags": "pageProtect",
+        "exactGood": [
+          4,
+          32,
+          64
+        ]
+      },
+      {
+        "kind": "outptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwQueryInformationFile",
+    "module": "ntdll",
+    "category": "Files",
+    "signature": [
+      "HANDLE FileHandle",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "PVOID FileInformation",
+      "ULONG Length",
+      "FILE_INFORMATION_CLASS FileInformationClass"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "enum"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwQueryInformationProcess",
+    "module": "ntdll",
+    "category": "Process",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "PROCESSINFOCLASS ProcessInformationClass",
+      "PVOID ProcessInformation",
+      "ULONG ProcessInformationLength",
+      "PULONG ReturnLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwQueryInformationThread",
+    "module": "ntdll",
+    "category": "Native",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "THREADINFOCLASS ThreadInformationClass",
+      "PVOID ThreadInformation",
+      "ULONG ThreadInformationLength",
+      "PULONG ReturnLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwQueryMultipleValueKey",
+    "module": "ntdll",
+    "category": "Native",
+    "signature": [
+      "HANDLE KeyHandle",
+      "PKEY_VALUE_ENTRY ValueEntries",
+      "ULONG EntryCount",
+      "PVOID ValueBuffer",
+      "PULONG BufferLength",
+      "PULONG RequiredBufferLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwQueryObject",
+    "module": "ntdll",
+    "category": "Handles",
+    "signature": [
+      "HANDLE Handle",
+      "OBJECT_INFORMATION_CLASS ObjectInformationClass",
+      "PVOID ObjectInformation",
+      "ULONG ObjectInformationLength",
+      "PULONG ReturnLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwQuerySymbolicLinkObject",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "HANDLE LinkHandle",
+      "PUNICODE_STRING LinkTarget",
+      "PULONG ReturnedLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwQuerySystemInformation",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "SYSTEM_INFORMATION_CLASS SystemInformationClass",
+      "PVOID SystemInformation",
+      "ULONG SystemInformationLength",
+      "PULONG ReturnLength"
+    ],
+    "params": [
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwQuerySystemTime",
+    "module": "ntdll",
+    "category": "Native",
+    "signature": [
+      "PLARGE_INTEGER SystemTime"
+    ],
+    "params": [
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwQueryValueKey",
+    "module": "ntdll",
+    "category": "Registry",
+    "signature": [
+      "HANDLE KeyHandle",
+      "PUNICODE_STRING ValueName",
+      "KEY_VALUE_INFORMATION_CLASS KeyValueInformationClass",
+      "PVOID KeyValueInformation",
+      "ULONG Length",
+      "PULONG ResultLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "outptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwQueryVirtualMemory",
+    "module": "ntdll",
+    "category": "Memory",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "PVOID BaseAddress",
+      "MEMORY_INFORMATION_CLASS MemoryInformationClass",
+      "PVOID MemoryInformation",
+      "SIZE_T MemoryInformationLength",
+      "PSIZE_T ReturnLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwQueueApcThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "PPS_APC_ROUTINE ApcRoutine",
+      "PVOID ApcArgument1",
+      "PVOID ApcArgument2",
+      "PVOID ApcArgument3"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "codeptr"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwQueueApcThreadEx",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "HANDLE UserApcReserveHandle",
+      "PPS_APC_ROUTINE ApcRoutine",
+      "PVOID ApcArgument1",
+      "PVOID ApcArgument2",
+      "PVOID ApcArgument3"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "handle",
+        "nullGood": true
+      },
+      {
+        "kind": "codeptr"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwRaiseHardError",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "NTSTATUS ErrorStatus",
+      "ULONG NumberOfParameters",
+      "ULONG UnicodeStringParameterMask",
+      "PULONG_PTR Parameters",
+      "ULONG ValidResponseOptions",
+      "PULONG Response"
+    ],
+    "params": [
+      {
+        "kind": "integer"
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "flags",
+        "zeroGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "flags"
+      },
+      {
+        "kind": "outptr"
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwReadFile",
+    "module": "ntdll",
+    "category": "Files",
+    "signature": [
+      "HANDLE FileHandle",
+      "HANDLE Event",
+      "PIO_APC_ROUTINE ApcRoutine",
+      "PVOID ApcContext",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "PVOID Buffer",
+      "ULONG Length",
+      "PLARGE_INTEGER ByteOffset",
+      "PULONG Key"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "handle",
+        "nullGood": true
+      },
+      {
+        "kind": "codeptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwReadVirtualMemory",
+    "module": "ntdll",
+    "category": "Process",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "PVOID BaseAddress",
+      "PVOID Buffer",
+      "SIZE_T NumberOfBytesToRead",
+      "PSIZE_T NumberOfBytesRead"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwReleaseMutant",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "HANDLE MutantHandle",
+      "PLONG PreviousCount"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwRenameKey",
+    "module": "ntdll",
+    "category": "Native",
+    "signature": [
+      "HANDLE KeyHandle",
+      "PUNICODE_STRING NewName"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwResetEvent",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "HANDLE EventHandle",
+      "PLONG PreviousState"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwResumeThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "PULONG PreviousSuspendCount"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwSetContextThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "PCONTEXT ThreadContext"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwSetEvent",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "HANDLE EventHandle",
+      "PLONG PreviousState"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwSetInformationFile",
+    "module": "ntdll",
+    "category": "Files",
+    "signature": [
+      "HANDLE FileHandle",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "PVOID FileInformation",
+      "ULONG Length",
+      "FILE_INFORMATION_CLASS FileInformationClass"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "enum"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwSetInformationKey",
+    "module": "ntdll",
+    "category": "Native",
+    "signature": [
+      "HANDLE KeyHandle",
+      "KEY_SET_INFORMATION_CLASS KeySetInformationClass",
+      "PVOID KeySetInformation",
+      "ULONG KeySetInformationLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwSetInformationProcess",
+    "module": "ntdll",
+    "category": "Process",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "PROCESSINFOCLASS ProcessInformationClass",
+      "PVOID ProcessInformation",
+      "ULONG ProcessInformationLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "size"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwSetInformationThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "THREADINFOCLASS ThreadInformationClass",
+      "PVOID ThreadInformation",
+      "ULONG ThreadInformationLength"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "size"
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwSetValueKey",
+    "module": "ntdll",
+    "category": "Registry",
+    "signature": [
+      "HANDLE KeyHandle",
+      "PUNICODE_STRING ValueName",
+      "ULONG TitleIndex",
+      "ULONG Type",
+      "PVOID Data",
+      "ULONG DataSize"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      },
+      {
+        "kind": "enum",
+        "flags": "registryType"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "size"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwShutdownSystem",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "SHUTDOWN_ACTION Action"
+    ],
+    "params": [
+      {
+        "kind": "enum"
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwSuspendThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "PULONG PreviousSuspendCount"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwSystemDebugControl",
+    "module": "ntdll",
+    "category": "Debug",
+    "signature": [
+      "SYSDBG_COMMAND Command",
+      "PVOID InputBuffer",
+      "ULONG InputBufferLength",
+      "PVOID OutputBuffer",
+      "ULONG OutputBufferLength",
+      "PULONG ReturnLength"
+    ],
+    "params": [
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "size",
+        "zeroGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwTerminateProcess",
+    "module": "ntdll",
+    "category": "Process",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "NTSTATUS ExitStatus"
+    ],
+    "params": [
+      {
+        "kind": "handle",
+        "nullGood": true
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwTerminateThread",
+    "module": "ntdll",
+    "category": "Threads",
+    "signature": [
+      "HANDLE ThreadHandle",
+      "NTSTATUS ExitStatus"
+    ],
+    "params": [
+      {
+        "kind": "handle",
+        "nullGood": true
+      },
+      {
+        "kind": "integer",
+        "zeroGood": true
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwUnloadDriver",
+    "module": "ntdll",
+    "category": "System",
+    "signature": [
+      "PUNICODE_STRING DriverServiceName"
+    ],
+    "params": [
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true
+  },
+  {
+    "name": "ZwUnmapViewOfSection",
+    "module": "ntdll",
+    "category": "Memory",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "PVOID BaseAddress"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr"
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwWaitForMultipleObjects",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "ULONG Count",
+      "HANDLE *Handles",
+      "WAIT_TYPE WaitType",
+      "BOOLEAN Alertable",
+      "PLARGE_INTEGER Timeout"
+    ],
+    "params": [
+      {
+        "kind": "integer"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "enum"
+      },
+      {
+        "kind": "bool"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwWaitForSingleObject",
+    "module": "ntdll",
+    "category": "Sync",
+    "signature": [
+      "HANDLE Handle",
+      "BOOLEAN Alertable",
+      "PLARGE_INTEGER Timeout"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "bool"
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwWriteFile",
+    "module": "ntdll",
+    "category": "Files",
+    "signature": [
+      "HANDLE FileHandle",
+      "HANDLE Event",
+      "PIO_APC_ROUTINE ApcRoutine",
+      "PVOID ApcContext",
+      "PIO_STATUS_BLOCK IoStatusBlock",
+      "PVOID Buffer",
+      "ULONG Length",
+      "PLARGE_INTEGER ByteOffset",
+      "PULONG Key"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "handle",
+        "nullGood": true
+      },
+      {
+        "kind": "codeptr",
+        "nullGood": true
+      },
+      {
+        "kind": "ptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
+  },
+  {
+    "name": "ZwWriteVirtualMemory",
+    "module": "ntdll",
+    "category": "Process",
+    "signature": [
+      "HANDLE ProcessHandle",
+      "PVOID BaseAddress",
+      "PVOID Buffer",
+      "SIZE_T NumberOfBytesToWrite",
+      "PSIZE_T NumberOfBytesWritten"
+    ],
+    "params": [
+      {
+        "kind": "handle"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "ptr"
+      },
+      {
+        "kind": "size"
+      },
+      {
+        "kind": "outptr",
+        "nullGood": true
+      }
+    ],
+    "system": true,
+    "manual": true
   }
 ]

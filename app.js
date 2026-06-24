@@ -1417,14 +1417,14 @@ function formatIdaPrototype(entry, displayName = entry.name) {
   const storages = idaArgumentStorages(entry);
   const hasRegisterArgs = storages.some((storage) => storage && storage !== "stack");
   const convention = hasRegisterArgs
-    ? `__userpurge ${displayName}@<${disassemblyAnalysis.returnStorage || "eax"}>`
-    : `${defaultIdaCallingConvention(entry)} ${displayName}`;
+    ? `__userpurge *${displayName}@<${disassemblyAnalysis.returnStorage || "eax"}>`
+    : `${defaultIdaCallingConvention(entry)} *${displayName}`;
   const params = entry.signature.map((part, index) => {
     const { type, name } = splitSignatureParam(part);
     const storage = hasRegisterArgs && storages[index] && storages[index] !== "stack" ? `@<${storages[index]}>` : "";
     return `${formatIdaType(type, displayName)} ${formatIdaParamName(name)}${storage}`;
   }).join(", ") || "void";
-  return `${returnType(entry)} ${convention}(${params});`;
+  return `${returnType(entry)} (${convention})(${params});`;
 }
 
 function idaArgumentStorages(entry) {
