@@ -3824,7 +3824,8 @@
           0,
           1
         ],
-        "allowUnknownBits": false
+        "allowUnknownBits": false,
+        "flags": "createMutexEx_dwFlags"
       },
       {
         "kind": "flags",
@@ -3977,7 +3978,28 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "createProcess_dwCreationFlags",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8,
+          16,
+          512,
+          1024,
+          2048,
+          4096,
+          65536,
+          262144,
+          524288,
+          4194304,
+          16777216,
+          33554432,
+          67108864,
+          134217728
+        ]
       },
       {
         "kind": "ptr",
@@ -4039,7 +4061,28 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "createProcessAsUser_dwCreationFlags",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8,
+          16,
+          512,
+          1024,
+          2048,
+          4096,
+          65536,
+          262144,
+          524288,
+          4194304,
+          16777216,
+          33554432,
+          67108864,
+          134217728
+        ]
       },
       {
         "kind": "ptr",
@@ -7149,8 +7192,18 @@
         "kind": "bool"
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "findFirstChangeNotification_dwNotifyFilter",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8,
+          16,
+          256
+        ]
       }
     ],
     "system": false
@@ -7209,7 +7262,14 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "findFirstFileEx_dwAdditionalFlags",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     ],
     "system": false
@@ -9138,7 +9198,15 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "getFinalPathNameByHandle_dwFlags",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8
+        ]
       }
     ],
     "system": false
@@ -24545,7 +24613,25 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "regGetValue_dwFlags",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8,
+          16,
+          24,
+          32,
+          64,
+          72,
+          65535,
+          65536,
+          131072,
+          268435456,
+          536870912
+        ]
       },
       {
         "kind": "outptr",
@@ -24798,7 +24884,12 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "regLoadMUIString_Flags",
+        "exactGood": [
+          0,
+          1
+        ]
       },
       {
         "kind": "stringptr",
@@ -25316,7 +25407,14 @@
       },
       {
         "kind": "flags",
-        "zeroGood": true
+        "zeroGood": true,
+        "flags": "regSaveKeyEx_Flags",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     ],
     "system": false
@@ -34476,8 +34574,24 @@
         ]
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "virtualAlloc2_PageProtection",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+          1024,
+          1073741824
+        ]
       },
       {
         "kind": "ptr",
@@ -34534,8 +34648,24 @@
         ]
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "virtualAlloc2FromApp_PageProtection",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+          1024,
+          1073741824
+        ]
       },
       {
         "kind": "ptr",
@@ -34632,8 +34762,24 @@
         ]
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "virtualAllocExNuma_flProtect",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+          1024,
+          1073741824
+        ]
       },
       {
         "kind": "integer",
@@ -34678,8 +34824,24 @@
         ]
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "virtualAllocFromApp_Protection",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+          1024,
+          1073741824
+        ]
       }
     ],
     "system": false
@@ -34855,8 +35017,24 @@
         "zeroGood": true
       },
       {
-        "kind": "integer",
-        "zeroGood": true
+        "kind": "flags",
+        "zeroGood": true,
+        "flags": "virtualProtectFromApp_NewProtection",
+        "exactGood": [
+          0,
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+          1024,
+          1073741824
+        ]
       },
       {
         "kind": "outptr",

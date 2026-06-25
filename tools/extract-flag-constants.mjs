@@ -57,16 +57,16 @@ function docsHeader(entry) {
   return CATEGORY_HEADERS[entry.category] || "";
 }
 
-function docsFunctionName(name) {
-  if (name.endsWith("A/W")) return `${name.slice(0, -3)}A`;
-  return name;
+function docsFunctionNames(name) {
+  // Try W first (matches build-catalog.mjs's caching preference), then A.
+  if (name.endsWith("A/W")) return [`${name.slice(0, -3)}W`, `${name.slice(0, -3)}A`];
+  return [name];
 }
 
-function urlFor(entry) {
+function urlsFor(entry) {
   const header = docsHeader(entry);
-  const docsName = docsFunctionName(entry.name);
-  if (!header) return null;
-  return `${BASE_URL}/${header}/nf-${header}-${docsName.toLowerCase()}`;
+  if (!header) return [];
+  return docsFunctionNames(entry.name).map((n) => `${BASE_URL}/${header}/nf-${header}-${n.toLowerCase()}`);
 }
 
 function cachePath(url) {
@@ -79,23 +79,65 @@ function readCache(url) {
   return fs.readFileSync(file, "utf-8");
 }
 
+async function fetchAndCache(url) {
+  const cached = readCache(url);
+  if (cached) return cached;
+  try {
+    const res = await fetch(url, { headers: { "User-Agent": "ArgLens-catalog-builder" } });
+    if (!res.ok) return null;
+    const html = await res.text();
+    fs.writeFileSync(cachePath(url), html);
+    return html;
+  } catch {
+    return null;
+  }
+}
+
+// Resolve a (possibly relative) MS Learn href to an absolute URL we can
+// fetch + cache. Returns null for off-site or anchor-only links.
+function normalizeLearnUrl(href) {
+  if (!href) return null;
+  if (href.startsWith("#")) return null;
+  if (href.startsWith("mailto:") || href.startsWith("javascript:")) return null;
+  let url;
+  if (/^https?:\/\//.test(href)) url = href;
+  else if (href.startsWith("/")) url = "https://learn.microsoft.com" + href;
+  else return null;
+  url = url.split("#")[0]; // strip fragment
+  // Normalize the legacy `/desktop/` slug to current `/win32/` where used,
+  // so we don't double-cache the same page under two URLs.
+  return url
+    .replace("/windows/desktop/", "/windows/win32/")
+    .replace("/desktop/api/", "/win32/api/")
+    .replace("/desktop/Sync/", "/win32/sync/")
+    .replace("/desktop/FileIO/", "/win32/fileio/")
+    .replace("/desktop/ProcThread/", "/win32/procthread/")
+    .replace("/desktop/SecAuthZ/", "/win32/secauthz/");
+}
+
+// Decide whether a URL is likely to be a constants/flags reference page
+// rather than another function reference page or an unrelated concept page.
+function looksLikeConstantsPage(url) {
+  if (!url) return false;
+  // Skip function reference pages — they have /api/HEADER/nf-HEADER-NAME form.
+  if (/\/api\/[^\/]+\/nf-[^\/]+-/.test(url)) return false;
+  // Whitelist by suffix tokens that almost always indicate a constants list.
+  return /-(?:flags|constants|values|attributes|options|access-rights|disposition|categories|modes|types|levels|priorities|info-classes)(?:$|[\/])/i.test(url)
+      || /security-and-access-rights/i.test(url)
+      || /process-creation-flags|process-access-rights|thread-access-rights|file-access-rights|registry-key-security-and-access-rights/i.test(url);
+}
+
 // Extract per-parameter constant lists from a function HTML page.
-// Returns { paramName: [{ name, value }] }, or {} if nothing parseable.
+// Returns { paramName: { constants: [{ name, value }], refs: [url] } }.
 function extractParamConstants(html) {
-  // Pin down the Parameters section
   const paramsBlockMatch = html.match(/<h2 id="parameters">([\s\S]*?)(?:<h2 |$)/);
   if (!paramsBlockMatch) return {};
   const block = paramsBlockMatch[1];
 
-  // Split by each parameter heading. The heading itself is inside <p><code>[in] name</code></p>
-  // or just <code>[in] *name*</code>. We capture each heading's name plus its
-  // following content up to (but not including) the next heading.
   const headingRe = /<code[^>]*>\[(?:in|out|in,\s*out|in,\s*optional|out,\s*optional|in,\s*out,\s*optional)[^\]]*\]\s+(\w+)<\/code>/g;
   const headings = [];
   let m;
-  while ((m = headingRe.exec(block))) {
-    headings.push({ name: m[1], start: m.index });
-  }
+  while ((m = headingRe.exec(block))) headings.push({ name: m[1], start: m.index });
   if (!headings.length) return {};
 
   const result = {};
@@ -103,10 +145,34 @@ function extractParamConstants(html) {
     const start = headings[i].start;
     const end = i + 1 < headings.length ? headings[i + 1].start : block.length;
     const section = block.slice(start, end);
-    const consts = extractConstantsFromSection(section);
-    if (consts.length) result[headings[i].name] = consts;
+    const constants = extractConstantsFromSection(section);
+    const refs = collectConstantsPageLinks(section);
+    if (constants.length || refs.length) {
+      result[headings[i].name] = { constants, refs };
+    }
   }
   return result;
+}
+
+function collectConstantsPageLinks(section) {
+  const urls = new Set();
+  const re = /href="([^"]+)"/g;
+  let m;
+  while ((m = re.exec(section))) {
+    const url = normalizeLearnUrl(m[1]);
+    if (url && looksLikeConstantsPage(url)) urls.add(url);
+  }
+  return [...urls];
+}
+
+// Parse a standalone constants reference page (e.g. Process Creation Flags).
+// Uses the same dl/dt patterns as a parameter section.
+function extractConstantsFromReferencePage(html) {
+  // Try to scope to the body content (skip nav/toc). MS Learn usually has
+  // a <main> wrapper. If not, just scan the whole document.
+  const mainMatch = html.match(/<main[\s\S]*?<\/main>/i);
+  const body = mainMatch ? mainMatch[0] : html;
+  return extractConstantsFromSection(body);
 }
 
 function extractConstantsFromSection(section) {
@@ -163,28 +229,88 @@ const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, "utf-8"));
 const flagGroups = {}; // groupName -> { value: name }
 let updatedParams = 0;
 let entriesTouched = 0;
+let externalPages = 0;
+
+// Cache of already-resolved constants per external reference URL.
+const refCache = new Map();
+async function constantsForRef(url) {
+  if (refCache.has(url)) return refCache.get(url);
+  const html = await fetchAndCache(url);
+  if (!html) {
+    refCache.set(url, []);
+    return [];
+  }
+  const consts = extractConstantsFromReferencePage(html);
+  if (consts.length) externalPages += 1;
+  refCache.set(url, consts);
+  return consts;
+}
+
+// Heuristic: when a multi-purpose page (e.g. synch-object security) is
+// referenced from a specific function param, filter the constants to the
+// ones that begin with the function's family prefix (e.g. TIMER_ for
+// CreateWaitableTimer, EVENT_ for CreateEvent). Falls back to all.
+function filterConstantsForEntry(constants, entry, paramName) {
+  if (constants.length <= 8) return constants;
+  const name = entry.name.replace(/A\/W$|[AW]$/, "");
+  const prefixes = [];
+  if (/Event/i.test(name)) prefixes.push("EVENT_");
+  if (/Mutex|Mutant/i.test(name)) prefixes.push("MUTEX_", "MUTANT_");
+  if (/Semaphore/i.test(name)) prefixes.push("SEMAPHORE_");
+  if (/WaitableTimer|Timer\b/i.test(name)) prefixes.push("TIMER_");
+  if (/Process/i.test(name)) prefixes.push("PROCESS_");
+  if (/Thread/i.test(name)) prefixes.push("THREAD_");
+  if (/File|Pipe/i.test(name)) prefixes.push("FILE_");
+  if (/Key|Reg/i.test(name)) prefixes.push("KEY_");
+  if (/SymbolicLink/i.test(name)) prefixes.push("SYMBOLIC_LINK_");
+  if (/Directory(Object)?/i.test(name)) prefixes.push("DIRECTORY_");
+  if (/Section/i.test(name)) prefixes.push("SECTION_");
+  if (/Token/i.test(name)) prefixes.push("TOKEN_");
+  if (!prefixes.length) return constants;
+  const filtered = constants.filter((c) => prefixes.some((p) => c.name.startsWith(p)));
+  return filtered.length ? filtered : constants;
+}
 
 for (const entry of catalog) {
-  const url = urlFor(entry);
-  if (!url) continue;
-  const html = readCache(url);
+  const candidates = urlsFor(entry);
+  if (!candidates.length) continue;
+  let html = null;
+  for (const u of candidates) {
+    html = readCache(u);
+    if (html) break;
+  }
   if (!html) continue;
   const found = extractParamConstants(html);
   if (!Object.keys(found).length) continue;
 
   let entryDirty = false;
 
-  entry.signature.forEach((sig, i) => {
+  for (let i = 0; i < entry.signature.length; i++) {
+    const sig = entry.signature[i];
     const sigMatch = sig.match(/(\w+)\s*$/);
-    if (!sigMatch) return;
+    if (!sigMatch) continue;
     const paramName = sigMatch[1];
-    const constants = found[paramName];
-    if (!constants || !constants.length) return;
+    const paramInfo = found[paramName];
+    if (!paramInfo) continue;
 
     const spec = entry.params[i];
-    if (!spec) return;
-    if (spec.flags) return; // already mapped — don't clobber
-    if (!["flags", "enum", "integer"].includes(spec.kind)) return;
+    if (!spec) continue;
+    if (spec.flags) continue;
+    if (!["flags", "enum", "integer"].includes(spec.kind)) continue;
+
+    let constants = paramInfo.constants;
+
+    // Fall back to / supplement with linked reference pages.
+    if (!constants.length && paramInfo.refs.length) {
+      for (const refUrl of paramInfo.refs) {
+        const refConsts = await constantsForRef(refUrl);
+        if (refConsts.length) {
+          constants = filterConstantsForEntry(refConsts, entry, paramName);
+          if (constants.length) break;
+        }
+      }
+    }
+    if (!constants.length) continue;
 
     const groupName = groupNameFor(entry, paramName);
     flagGroups[groupName] = {};
@@ -193,13 +319,12 @@ for (const entry of catalog) {
     spec.flags = groupName;
     if (spec.kind === "integer") spec.kind = "flags";
     spec.kind = paramKindFor(spec.kind, constants);
-    // Include 0 + all single-constant values in exactGood for nicer scoring.
     const exactGood = new Set(constants.map((c) => c.value));
     if (spec.zeroGood) exactGood.add(0);
     spec.exactGood = [...exactGood].sort((a, b) => a - b);
     updatedParams += 1;
     entryDirty = true;
-  });
+  }
 
   if (entryDirty) entriesTouched += 1;
 }
