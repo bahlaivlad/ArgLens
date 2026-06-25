@@ -223,8 +223,19 @@ Four scripts under `tools/`:
   against the existing `FLAG_DEFS` groups in app.js. Catches the long
   tail of params whose MSDN page links out to a separate constants
   page instead of enumerating values inline.
+- **`tools/fix-nullgood.mjs`** — re-reads each cached MS Learn HTML
+  and reconciles per-parameter `nullGood` against the SAL annotation
+  (`[in]` vs `[in, optional]`). Strips `nullGood` from any pointer-
+  shaped parameter MSDN marks as non-optional. Skips manual entries
+  by default; pass `--manual` to include them.
+- **`tools/mark-unsigned-nonnegative.mjs`** — sweeps integer / flags /
+  enum / size parameters whose C type is one of the unsigned Windows
+  types (`DWORD`, `ULONG`, `UINT`, `WORD`, `BYTE`, `ULONGLONG`,
+  `SIZE_T`, `ACCESS_MASK`, etc.) and adds `nonNegative: true`. A user
+  entering `-1` for `DWORD dwProcessId` is always a mistake, and the
+  catalog now rejects it.
 
-All four are idempotent.
+All scripts are idempotent.
 
 ---
 
