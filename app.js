@@ -223,7 +223,6 @@ const FLAG_DEFS = {
     0x0001: "SYMBOLIC_LINK_QUERY",
     0x000f0001: "SYMBOLIC_LINK_ALL_ACCESS"
   },
-,
   createFile2_dwShareMode: {
     0x1: "FILE_SHARE_READ",
     0x2: "FILE_SHARE_WRITE",

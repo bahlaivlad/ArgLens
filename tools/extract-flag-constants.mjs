@@ -361,8 +361,11 @@ const generatedSnippets = newGroupNames.map((name) => {
 
 let nextAppJs = appJs;
 if (generatedSnippets.length) {
-  // Insert just before the closing brace
-  const insertion = (existingBlock.trim().endsWith("{") ? "" : ",\n") + generatedSnippets.join(",\n") + "\n";
+  // Insert just before the closing brace. If the existing block already
+  // ends with a trailing `,` (or is empty), skip the leading separator.
+  const trimmed = existingBlock.trim();
+  const needsLeadingComma = !trimmed.endsWith("{") && !trimmed.endsWith(",");
+  const insertion = (needsLeadingComma ? ",\n" : "\n") + generatedSnippets.join(",\n") + "\n";
   nextAppJs = appJs.slice(0, closeIdx) + insertion + appJs.slice(closeIdx);
 }
 
