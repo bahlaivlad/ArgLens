@@ -1025,14 +1025,21 @@ function parseNumber(raw) {
   s = s.replace(/^offset\s+/i, "");
   s = s.replace(/^large\s+/i, "");
   s = s.split(/\s/)[0].replace(/,$/, "");
-  if (/^-?0x[0-9a-f]+$/i.test(s)) return Number.parseInt(s, 16);
-  if (/^-?[0-9a-f]+h$/i.test(s)) {
+  let n = null;
+  if (/^-?0x[0-9a-f]+$/i.test(s)) n = Number.parseInt(s, 16);
+  else if (/^-?[0-9a-f]+h$/i.test(s)) {
     const sign = s.startsWith("-") ? -1 : 1;
     const body = s.replace(/^-/, "").slice(0, -1);
-    return sign * Number.parseInt(body, 16);
+    n = sign * Number.parseInt(body, 16);
   }
-  if (/^-?\d+$/.test(s)) return Number.parseInt(s, 10);
-  return null;
+  else if (/^-?\d+$/.test(s)) n = Number.parseInt(s, 10);
+  if (n === null || Number.isNaN(n)) return null;
+  // Reject values past 53-bit precision — they round-trip incorrectly in
+  // JavaScript and aren't legitimate handle/flag/access-mask values
+  // anyway (the largest Win32 access masks fit in 32 bits, x64 user-mode
+  // pointers fit in 48).
+  if (!Number.isSafeInteger(n)) return null;
+  return n;
 }
 
 function parseArgument(raw) {
