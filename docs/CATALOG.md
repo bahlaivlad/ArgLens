@@ -97,14 +97,26 @@ relax or sharpen the scoring. The kinds are:
 
 {
   kind: "integer",
-  nonNegative: true,        // reject negative values
+  nonNegative: true,        // strict: reject ALL negatives
                             // (e.g., CreateSemaphore's lInitialCount)
+}
+
+{
+  kind: "integer",
+  unsigned: true,           // C type is DWORD/ULONG/UINT/WORD/BYTE/etc.
+                            // value === -1 is substituted to 0xFFFFFFFF
+                            // (lets the user type -1 instead of
+                            // 0xFFFFFFFFFFFFFFFF for INFINITE on x64),
+                            // any other negative value is rejected.
 }
 ```
 
-`nonNegative: true` works on any kind whose values fail when negative
-(common for `integer`, `size`). Use it when MSDN explicitly says
-"must be greater than or equal to zero".
+`nonNegative: true` is the strict rule — appropriate for signed types
+where MSDN explicitly says "must be >= 0". `unsigned: true` is the
+permissive rule — appropriate for any param whose C type is unsigned,
+where `-1` is the user's shorthand for `0xFFFFFFFF`. The
+[tools/mark-unsigned-nonnegative.mjs](#auto-generation) script sets
+`unsigned` automatically based on the signature type.
 
 ### `FLAG_DEFS` group names
 

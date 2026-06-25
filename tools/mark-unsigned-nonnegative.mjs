@@ -1,14 +1,16 @@
 // Mark every integer / flags / enum / size parameter whose C type is an
 // unsigned Windows type (DWORD, ULONG, UINT, WORD, BYTE, ULONGLONG, etc.)
-// with `nonNegative: true`. By C semantics those values cannot hold a
-// negative number, so a user typing `-1` for them is always a mistake
-// (and would be silently reinterpreted as 0xFFFFFFFF). The existing
-// scoreParam rejection on nonNegative will then filter those candidates
-// out.
+// with `unsigned: true`. The scoreParam path treats those as follows:
+// - value === -1 is substituted to 0xFFFFFFFF (the all-ones sentinel —
+//   lets the user type -1 instead of 0xFFFFFFFF/0xFFFFFFFFFFFFFFFF for
+//   things like INFINITE/INVALID_HANDLE_VALUE).
+// - any other negative value is rejected.
 //
-// Skips kinds that already reject negatives by other means (handle, ptr,
-// stringptr, codeptr, outptr, bool). Skips params that already carry
-// `nonNegative: true`.
+// Earlier passes of this script set `nonNegative: true` for the same
+// params; that's the stricter rule we want to keep for hand-tuned
+// signed-typed params like CreateSemaphore's lInitialCount (LONG).
+// This pass migrates the unsigned-typed params from nonNegative ->
+// unsigned and leaves signed-typed nonNegative entries alone.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -52,18 +54,29 @@ function isUnsigned(typeStr) {
 }
 
 const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, "utf-8"));
-let touched = 0;
+let added = 0;
+let migrated = 0;
 for (const entry of catalog) {
   entry.signature.forEach((sig, i) => {
     const spec = entry.params[i];
     if (!spec) return;
     if (!TARGET_KINDS.has(spec.kind)) return;
-    if (spec.nonNegative) return;
     const t = typeOf(sig);
     if (!isUnsigned(t)) return;
-    spec.nonNegative = true;
-    touched += 1;
+    if (spec.unsigned) return;
+    // Migrate auto-applied nonNegative (from previous sweep) to unsigned.
+    // Manual nonNegative on a signed-typed param is left alone by virtue
+    // of the isUnsigned guard above.
+    if (spec.nonNegative === true) {
+      delete spec.nonNegative;
+      migrated += 1;
+    } else {
+      added += 1;
+    }
+    spec.unsigned = true;
   });
 }
 fs.writeFileSync(CATALOG_PATH, JSON.stringify(catalog, null, 2) + "\n");
-console.log(`Marked ${touched} params as nonNegative based on unsigned C type.`);
+console.log(`Marked ${added + migrated} params with unsigned: true.`);
+console.log(`  - ${migrated} migrated from nonNegative.`);
+console.log(`  - ${added} freshly added.`);

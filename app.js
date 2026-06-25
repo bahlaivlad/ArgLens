@@ -1119,7 +1119,14 @@ function scoreParam(spec, arg) {
   if (arg.unknown) return { score: 0, note: "unknown", compatible: true, neutral: true };
   if (arg.value === null) return { score: 0, note: "unparsed value", compatible: false };
 
-  const value = arg.value;
+  let value = arg.value;
+  // On an unsigned-typed slot, treat -1 as the 32-bit all-ones sentinel
+  // (INFINITE, INVALID_*, etc.). This lets the user type -1 instead of
+  // 0xFFFFFFFF/0xFFFFFFFFFFFFFFFF. Other negatives stay negative and get
+  // rejected below.
+  if (spec.unsigned && value === -1) {
+    value = 0xFFFFFFFF;
+  }
   const constantValue = normalizeConstantValue(value);
 
   const isNull = value === 0;
@@ -1169,6 +1176,13 @@ function scoreParam(spec, arg) {
 
   if (spec.nonNegative && value < 0) {
     return { score: 0, note: "negative value is not accepted here", compatible: false };
+  }
+
+  if (spec.unsigned && value < 0) {
+    // -1 was already substituted to 0xFFFFFFFF above; reaching here means
+    // it's some other negative (-2, -50, …) and not a valid value for an
+    // unsigned type.
+    return { score: 0, note: "negative value is not accepted on an unsigned type", compatible: false };
   }
 
   let score = 0;
