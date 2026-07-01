@@ -262,7 +262,7 @@ button {
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 7px;
 }
@@ -374,6 +374,10 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+}
+
+.section-kicker-row .section-kicker {
+  align-self: flex-start;
 }
 
 .kicker-actions {
